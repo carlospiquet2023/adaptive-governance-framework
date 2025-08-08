@@ -1,11 +1,10 @@
 # Dockerfile para UI React (Vite ou Next.js)
 FROM node:18-alpine AS builder
 WORKDIR /app
-COPY package.json .
-COPY yarn.lock .
-RUN yarn install --frozen-lockfile || npm install
+COPY package.json package-lock.json ./
+RUN npm install
 COPY . .
-RUN yarn build || npm run build
+RUN npm run build
 
 FROM nginx:alpine
 COPY --from=builder /app/dist /usr/share/nginx/html

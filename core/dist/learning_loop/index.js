@@ -10,7 +10,8 @@ class LearningLoop {
     refinePolicies(currentPolicies) {
         // Exemplo: ajusta políticas com base em incidentes
         for (const incident of this.feedback) {
-            if (incident.type === 'latency' && incident.value > currentPolicies.performance.slo.latency_p95_ms) {
+            if (incident.type === 'latency' &&
+                incident.value > currentPolicies.performance.slo.latency_p95_ms) {
                 currentPolicies.performance.slo.latency_p95_ms = Math.max(100, currentPolicies.performance.slo.latency_p95_ms - 50);
             }
         }

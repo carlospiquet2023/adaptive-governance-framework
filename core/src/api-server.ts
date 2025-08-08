@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import publicApi from './api/public';
 
 const app = express();
 app.use(express.json());
@@ -105,6 +106,8 @@ app.post('/integrations/jira', (req, res) => {
     .status(200)
     .json({ status: 'ok', received: true, provider: 'jira', event: payload });
 });
+
+app.use('/api/public', publicApi);
 
 app.get('/', (req, res) => {
   res.status(200).json({ status: 'ok', message: 'Core online' });

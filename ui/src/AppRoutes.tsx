@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import Dashboard from './pages/Dashboard';
 import Policies from './pages/Policies';
+import Marketplace from './pages/Marketplace';
 import NotFound from './pages/NotFound';
 import LoginPage from './pages/LoginPage';
 import ProtectedRoute from './auth/ProtectedRoute';
@@ -24,6 +25,14 @@ export default function AppRoutes() {
         element={
           <ProtectedRoute>
             <Policies />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/marketplace"
+        element={
+          <ProtectedRoute>
+            <Marketplace />
           </ProtectedRoute>
         }
       />
