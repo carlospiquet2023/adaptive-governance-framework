@@ -6,12 +6,31 @@
  * Para licenciamento: carlospiquet.projetos@gmail.com
  */
 
-import api from '../services/api';
+import { apiClient } from '../services/api';
 
-export async function loginUser(
-  username: string,
-  password: string,
-): Promise<string> {
-  const response = await api.post('/auth/login', { username, password });
-  return response.data.token;
+interface LoginResponse {
+  token: string;
+  user: {
+    id: string;
+    email: string;
+    role: string;
+  };
 }
+
+export const authService = {
+  async login(email: string, password: string): Promise<LoginResponse> {
+    try {
+      const response = await apiClient.post('/auth/login', { email, password });
+      return response.data;
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || 'Erro no login');
+    }
+  },
+
+  async logout(): Promise<void> {
+    // Implementar logout se necessário
+    return Promise.resolve();
+  }
+};
+
+export default authService;

@@ -8,9 +8,17 @@
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
+interface User {
+  id: string;
+  email: string;
+  role: string;
+  tenantId?: string;
+}
+
 interface AuthContextType {
   token: string | null;
-  login: (token: string) => void;
+  user: User | null;
+  login: (token: string, userData: User) => void;
   logout: () => void;
 }
 
@@ -20,19 +28,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [token, setToken] = useState<string | null>(
     localStorage.getItem('token'),
   );
+  const [user, setUser] = useState<User | null>(() => {
+    const userData = localStorage.getItem('user');
+    return userData ? JSON.parse(userData) : null;
+  });
 
-  const login = (newToken: string) => {
+  const login = (newToken: string, userData: User) => {
     setToken(newToken);
+    setUser(userData);
     localStorage.setItem('token', newToken);
+    localStorage.setItem('user', JSON.stringify(userData));
   };
 
   const logout = () => {
     setToken(null);
+    setUser(null);
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
   };
 
   return (
-    <AuthContext.Provider value={{ token, login, logout }}>
+    <AuthContext.Provider value={{ token, user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

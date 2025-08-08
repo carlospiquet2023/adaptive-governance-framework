@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /*
  * Copyright (c) 2025 Carlos Antonio de Oliveira Piquet
  * Este arquivo faz parte de um sistema proprietário.
@@ -5,8 +6,6 @@
  * Violações estão sujeitas às penalidades da lei brasileira.
  * Para licenciamento: carlospiquet.projetos@gmail.com
  */
-
-#!/usr/bin/env node
 import { Command } from 'commander';
 import { RuleDSLParser } from '../dsl/rule-dsl';
 import { PolicyEngine } from '../engines/PolicyEngine';

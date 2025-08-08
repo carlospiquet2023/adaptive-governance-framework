@@ -8,12 +8,13 @@
 
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-
 import Dashboard from './pages/Dashboard';
+import TenantDashboard from './pages/TenantDashboard';
+import AdminDashboard from './pages/AdminDashboard';
+import LoginPage from './pages/LoginPage';
+import NotFound from './pages/NotFound';
 import Policies from './pages/Policies';
 import Marketplace from './pages/Marketplace';
-import NotFound from './pages/NotFound';
-import LoginPage from './pages/LoginPage';
 import ProtectedRoute from './auth/ProtectedRoute';
 
 export default function AppRoutes() {
@@ -25,6 +26,22 @@ export default function AppRoutes() {
         element={
           <ProtectedRoute>
             <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/tenant"
+        element={
+          <ProtectedRoute>
+            <TenantDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute requiredRole="admin">
+            <AdminDashboard />
           </ProtectedRoute>
         }
       />

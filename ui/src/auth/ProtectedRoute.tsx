@@ -10,12 +10,33 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 
+interface ProtectedRouteProps {
+  children: JSX.Element;
+  requiredRole?: string;
+}
+
 export default function ProtectedRoute({
   children,
-}: {
-  children: JSX.Element;
-}) {
-  const { token } = useAuth();
+  requiredRole
+}: ProtectedRouteProps) {
+  const { token, user } = useAuth();
+  
   if (!token) return <Navigate to="/login" replace />;
+
+  // Verificar role se especificado
+  if (requiredRole && user?.role !== requiredRole) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-red-600 mb-4">Acesso Negado</h1>
+          <p className="text-gray-600">Você não tem permissão para acessar esta página.</p>
+          <p className="text-sm text-gray-500 mt-2">
+            Role necessária: {requiredRole} | Sua role: {user?.role || 'N/A'}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return children;
 }
