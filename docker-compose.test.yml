@@ -1,0 +1,6 @@
+version: '3.8'
+services:
+  core:
+    command: npm test
+  ui:
+    command: npm test

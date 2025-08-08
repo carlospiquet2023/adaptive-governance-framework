@@ -1,0 +1,24 @@
+# Exemplo de política adaptativa
+
+context:
+  project_type: fintech
+  business_goal: high_security_transactions
+  team_seniority: mixed
+
+policies:
+  security:
+    owasp:
+      focus_areas:
+        - Injection
+        - Broken Access Control
+      enforcement: block_on_failure
+    encryption:
+      at_rest: AES-256
+      enforcement: alert_on_noncompliance
+  quality:
+    maintainability_index: 85
+    enforcement: suggest_refactor
+  performance:
+    slo:
+      latency_p95_ms: 200
+      enforcement: auto_adjust

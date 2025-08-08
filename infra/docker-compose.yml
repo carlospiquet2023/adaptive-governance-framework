@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  core:
+    build: ../core
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - db
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: governance
+      POSTGRES_PASSWORD: governance
+      POSTGRES_DB: governance
+    ports:
+      - '5432:5432'
+  ui:
+    build: ../ui
+    ports:
+      - '8080:80'
+    depends_on:
+      - core

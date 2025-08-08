@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  core:
+    ports:
+      - '${CORE_PORT}:${CORE_PORT}'
+    volumes:
+      - ./core:/app
+      - /app/node_modules
+  ui:
+    ports:
+      - '${UI_PORT}:80'
+    volumes:
+      - ./ui:/app
+      - /app/node_modules

@@ -1,0 +1,6 @@
+version: '3.8'
+services:
+  core:
+    command: npm run lint
+  ui:
+    command: npm run lint
