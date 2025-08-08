@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /*
- * Copyright (c) 2025 Carlos Antonio de Oliveira Piquet
+ * Copyright (c) 2025 Carlos Antonio de Oliveira Piquet & Dougla de Pinho Reck dos Santos
  * Este arquivo faz parte de um sistema proprietário.
  * É ESTRITAMENTE PROIBIDO o uso, cópia ou distribuição sem permissão.
  * Violações estão sujeitas às penalidades da lei brasileira.
@@ -12,7 +12,7 @@ const fs = require('fs');
 const path = require('path');
 
 const COPYRIGHT_HEADER = `/*
- * Copyright (c) 2025 Carlos Antonio de Oliveira Piquet
+ * Copyright (c) 2025 Carlos Antonio de Oliveira Piquet & Dougla de Pinho Reck dos Santos
  * Este arquivo faz parte de um sistema proprietário.
  * É ESTRITAMENTE PROIBIDO o uso, cópia ou distribuição sem permissão.
  * Violações estão sujeitas às penalidades da lei brasileira.
@@ -34,7 +34,8 @@ function shouldProcessFile(filePath) {
 }
 
 function hasExistingCopyright(content) {
-  return content.includes('Copyright (c) 2025 Carlos Antonio de Oliveira Piquet');
+  return content.includes('Copyright (c) 2025 Carlos Antonio de Oliveira Piquet') || 
+         content.includes('Copyright (c) 2025 Carlos Antonio de Oliveira Piquet & Dougla de Pinho Reck dos Santos');
 }
 
 function addCopyrightToFile(filePath) {

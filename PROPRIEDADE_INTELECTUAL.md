@@ -6,7 +6,7 @@ Este repositório contém **propriedade intelectual protegida** por direitos aut
 
 ### 📋 INFORMAÇÕES LEGAIS
 
-**Proprietário:** Carlos Antonio de Oliveira Piquet  
+**Proprietários:** Carlos Antonio de Oliveira Piquet & Dougla de Pinho Reck dos Santos  
 **Tipo:** Software Proprietário com Todos os Direitos Reservados  
 **Licença:** Restritiva e Não-Comercial (Ver arquivo LICENSE)  
 

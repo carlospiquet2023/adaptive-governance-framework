@@ -3,7 +3,7 @@
 
 **Data do Relatório:** 8 de agosto de 2025  
 **Versão:** 2.0 Enterprise  
-**Autor:** Carlos Antonio de Oliveira Piquet  
+**Autores:** Carlos Antonio de Oliveira Piquet & Dougla de Pinho Reck dos Santos  
 **Status:** Sistema Proprietário - Totalmente Funcional
 
 ---
@@ -648,7 +648,9 @@ export class CustomSecurityPlugin implements GovernancePlugin {
 - **Status**: Propriedade Intelectual Protegida
 
 ### **👤 Contato Direto**
-- **Autor/CTO**: Carlos Antonio de Oliveira Piquet
+- **Autores/Co-Fundadores**: 
+  - Carlos Antonio de Oliveira Piquet
+  - Dougla de Pinho Reck dos Santos
 - **Email Comercial**: carlospiquet.projetos@gmail.com
 - **LinkedIn**: https://linkedin.com/in/carlospiquet2023
 - **GitHub**: https://github.com/carlospiquet2023
@@ -665,7 +667,7 @@ export class CustomSecurityPlugin implements GovernancePlugin {
 ## 🚨 **AVISOS LEGAIS**
 
 ### **⚖️ Propriedade Intelectual**
-Este sistema é **PROPRIEDADE INTELECTUAL EXCLUSIVA** de Carlos Antonio de Oliveira Piquet. Todos os direitos são reservados sob a legislação brasileira e internacional de propriedade intelectual.
+Este sistema é **PROPRIEDADE INTELECTUAL EXCLUSIVA** de Carlos Antonio de Oliveira Piquet e Dougla de Pinho Reck dos Santos. Todos os direitos são reservados sob a legislação brasileira e internacional de propriedade intelectual.
 
 ### **📜 Base Legal**
 - **Lei 9.610/98**: Lei de Direitos Autorais
@@ -680,6 +682,6 @@ Este sistema é **PROPRIEDADE INTELECTUAL EXCLUSIVA** de Carlos Antonio de Olive
 
 ---
 
-**© 2025 Carlos Antonio de Oliveira Piquet - Todos os direitos reservados**
+**© 2025 Carlos Antonio de Oliveira Piquet & Dougla de Pinho Reck dos Santos - Todos os direitos reservados**
 
 *Este relatório representa a análise técnica completa de um sistema proprietário avançado. Qualquer uso não autorizado está sujeito às penalidades da lei.*

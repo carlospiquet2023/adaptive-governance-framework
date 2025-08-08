@@ -15,9 +15,9 @@
 
 ### 🔒 **PROPRIEDADE INTELECTUAL EXCLUSIVA**
 
-Este projeto foi **idealizado, estruturado e desenvolvido por Carlos Antonio de Oliveira Piquet**.
+Este projeto foi **idealizado, estruturado e desenvolvido por Carlos Antonio de Oliveira Piquet e Dougla de Pinho Reck dos Santos**.
 
-**TODOS OS DIREITOS RESERVADOS** - Este framework é propriedade intelectual exclusiva do autor. 
+**TODOS OS DIREITOS RESERVADOS** - Este framework é propriedade intelectual exclusiva dos autores. 
 
 ### ⛔ **USO PROIBIDO SEM AUTORIZAÇÃO**
 
@@ -684,9 +684,9 @@ Este projeto está licenciado sob a **MIT License** - veja o arquivo [LICENSE](L
 
 ---
 
-**© 2025 Carlos Antonio de Oliveira Piquet - Todos os direitos reservados**
+**© 2025 Carlos Antonio de Oliveira Piquet & Dougla de Pinho Reck dos Santos - Todos os direitos reservados**
 
-*Este projeto representa anos de desenvolvimento e inovação em arquiteturas empresariais avançadas.*
+*Este projeto representa anos de desenvolvimento e inovação em arquiteturas empresariais avançadas pelos co-fundadores.*
 
 ### 5. Integrações externas simuladas
 - **POST /integrations/slack** `{ message }` → envia mensagem para Slack
