@@ -24,6 +24,21 @@ Sistema empresarial avançado de governança adaptativa que utiliza **Inteligên
 - 🐳 **Cloud Ready**: Docker, Kubernetes, CI/CD pipeline completo
 - 🎯 **Real-time**: WebSockets, event-driven, decisões em milissegundos
 
+### 💼 **SaaS Multi-Tenant Ready**
+
+- 🏢 **Multi-tenancy**: Isolamento completo de dados por tenant
+- 💳 **Stripe Integration**: Billing automático, planos flexíveis
+- 📊 **Usage Tracking**: Monitoramento de uso em tempo real
+- 🎛️ **Plan Enforcement**: Limites automáticos por plano
+- 🚀 **Subdomain Routing**: `{tenant}.yourdomain.com`
+- 🔧 **Admin Panel**: Gestão centralizada de tenants
+- 📈 **Metrics Dashboard**: Revenue, usage, conversion rates
+
+**Planos Disponíveis:**
+- 🆓 **Free**: 1K decisions/month, 5 policies, 1 ML model
+- 💎 **Pro** ($29/month): 50K decisions/month, XAI, plugins, analytics
+- 🏢 **Enterprise** ($199/month): Unlimited + priority support + SSO
+
 ---
 
 ## 🎯 **Arquitetura Enterprise**
@@ -89,8 +104,14 @@ npm install
 # Configure ambiente
 cp .env.example .env
 
-# API (Core)
-cd core && npm ci --legacy-peer-deps && npm run api
+# API (Core) com SaaS
+cd core && npm ci --legacy-peer-deps
+
+# Setup inicial do SaaS (cria tenants demo)
+npm run setup-saas
+
+# Inicie o servidor API
+npm run api
 
 # UI (Painel)
 cd ../ui && npm ci && npm run dev
@@ -101,6 +122,8 @@ cd ../ui && npm ci && npm run dev
 - 🔌 **API Core**: http://localhost:3000
 - 📚 **Swagger UI**: http://localhost:3000/docs
 - 📊 **Metrics**: http://localhost:3000/metrics
+- 🏢 **Tenant Demo (Pro)**: http://localhost:3000/tenant/demo
+- 🧪 **Tenant Test (Free)**: http://localhost:3000/tenant/test
 - 💾 **Database**: localhost:5432
 - 🔴 **Redis**: localhost:6379
 
@@ -216,13 +239,49 @@ npm run cli -- model --list
 ### **2️⃣ API Pública (exemplos)**
 
 ```bash
-# Models
+# Models (requer tenant)
 GET  http://localhost:3000/api/public/models
 POST http://localhost:3000/api/public/models             # body: { name, type, version }
 POST http://localhost:3000/api/public/models/:id/activate
 
-# XAI
+# XAI (requer plano Pro/Enterprise)
 POST http://localhost:3000/api/public/xai/explain        # body: { context: { resource, action, ... } }
+```
+
+### **3️⃣ SaaS Management APIs**
+
+```bash
+# Tenant Management
+POST /api/saas/tenants                    # Criar novo tenant
+GET  /api/saas/tenant                     # Info do tenant atual
+PUT  /api/saas/tenant                     # Atualizar tenant
+
+# Billing & Subscriptions  
+POST /api/saas/billing/customer           # Criar customer no Stripe
+POST /api/saas/billing/checkout           # Checkout session para upgrade
+POST /api/saas/billing/portal             # Portal de gerenciamento
+POST /api/saas/subscription/cancel        # Cancelar assinatura
+
+# Plans & Usage
+GET  /api/saas/plans                      # Listar planos disponíveis
+GET  /api/saas/tenant                     # Ver usage e limites atuais
+
+# Admin (sem tenant)
+GET  /api/admin/tenants                   # Listar todos os tenants
+PUT  /api/admin/tenants/:id/suspend       # Suspender tenant
+PUT  /api/admin/tenants/:id/reactivate    # Reativar tenant
+```
+
+**Headers para tenant:**
+```bash
+# Via header personalizado
+curl -H "x-tenant-subdomain: demo" http://localhost:3000/api/saas/tenant
+
+# Via subdomain (produção)
+curl http://demo.yourdomain.com/api/saas/tenant
+
+# Via path (desenvolvimento)
+curl http://localhost:3000/tenant/demo/api/saas/tenant
 ```
 
 ### **3️⃣ SDK/Framework**

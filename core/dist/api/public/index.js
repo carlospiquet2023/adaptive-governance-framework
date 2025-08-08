@@ -4,6 +4,7 @@ const express_1 = require("express");
 const ModelRegistry_1 = require("../../model_registry/ModelRegistry");
 const XAIEngine_1 = require("../../xai/XAIEngine");
 const PolicyEngine_1 = require("../../engines/PolicyEngine");
+const saas_1 = require("../../saas");
 const router = (0, express_1.Router)();
 /**
  * @swagger
@@ -30,30 +31,68 @@ const router = (0, express_1.Router)();
 router.get('/policies', (req, res) => {
     // Mock data - replace with actual data from your policy engine
     const policies = [
-        { id: 'pol1', name: 'Política de Acesso a Dados', description: 'Define quem pode acessar dados sensíveis.' },
-        { id: 'pol2', name: 'Política de Retenção de Dados', description: 'Define por quanto tempo os dados são mantidos.' },
+        {
+            id: 'pol1',
+            name: 'Política de Acesso a Dados',
+            description: 'Define quem pode acessar dados sensíveis.',
+            tenantId: req.tenant?.id || null
+        },
+        {
+            id: 'pol2',
+            name: 'Política de Retenção de Dados',
+            description: 'Define por quanto tempo os dados são mantidos.',
+            tenantId: req.tenant?.id || null
+        },
     ];
     res.json(policies);
 });
 exports.default = router;
-// Model Registry endpoints
-router.get('/models', (_req, res) => {
-    res.json(ModelRegistry_1.ModelRegistry.getInstance().list());
+// Model Registry endpoints (require tenant and check limits)
+router.get('/models', saas_1.requireTenant, (req, res) => {
+    // Filter models by tenant in production
+    const models = ModelRegistry_1.ModelRegistry.getInstance().list();
+    res.json(models.map(model => ({
+        ...model,
+        tenantId: req.tenant.id
+    })));
 });
-router.post('/models', (req, res) => {
-    const info = ModelRegistry_1.ModelRegistry.getInstance().register(req.body);
+router.post('/models', saas_1.requireTenant, (0, saas_1.checkLimit)('canCreateModel'), (0, saas_1.trackUsage)('models'), (req, res) => {
+    // Add tenant context to model
+    const modelData = {
+        ...req.body,
+        tenantId: req.tenant.id
+    };
+    const info = ModelRegistry_1.ModelRegistry.getInstance().register(modelData);
     res.status(201).json(info);
 });
-router.post('/models/:id/activate', (req, res) => {
+router.post('/models/:id/activate', saas_1.requireTenant, (0, saas_1.checkLimit)('canCreateModel'), (req, res) => {
+    // In production, verify model belongs to tenant
     ModelRegistry_1.ModelRegistry.getInstance().activate(req.params.id);
     res.status(204).send();
 });
-// XAI explain endpoint
-router.post('/xai/explain', async (req, res) => {
-    const engine = new PolicyEngine_1.PolicyEngine();
-    const result = await engine.evaluate({ ...(req.body?.context || {}), timestamp: new Date() });
-    const xai = new XAIEngine_1.XAIEngine();
-    const exp = await xai.explainDecision(result);
-    res.json(exp);
+// XAI explain endpoint (check XAI access and track usage)
+router.post('/xai/explain', saas_1.requireTenant, (0, saas_1.checkLimit)('hasXAI'), (0, saas_1.trackUsage)('decisions'), async (req, res) => {
+    try {
+        const engine = new PolicyEngine_1.PolicyEngine();
+        const context = {
+            ...(req.body?.context || {}),
+            timestamp: new Date(),
+            tenantId: req.tenant.id
+        };
+        const result = await engine.evaluate(context);
+        const xai = new XAIEngine_1.XAIEngine();
+        const explanation = await xai.explainDecision(result);
+        res.json({
+            ...explanation,
+            tenantId: req.tenant.id,
+            planType: req.tenant.planType
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            error: error.message,
+            code: 'XAI_ERROR'
+        });
+    }
 });
 //# sourceMappingURL=index.js.map

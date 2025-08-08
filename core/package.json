@@ -12,7 +12,8 @@
     "cli": "ts-node src/bin/gov-cli.ts",
     "lint": "eslint ./src --ext .ts",
     "format": "prettier --write \"src/**/*.ts\"",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "setup-saas": "ts-node scripts/setup-saas.ts"
   },
   "author": "",
   "license": "MIT",
@@ -24,6 +25,7 @@
     "@types/ioredis": "^4.28.10",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/pg": "^8.15.5",
+    "@types/stripe": "^8.0.416",
     "@types/uuid": "^10.0.0",
     "@types/winston": "^2.4.4",
     "axios": "^1.6.2",
@@ -38,6 +40,7 @@
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.16.3",
     "prom-client": "^15.1.3",
+    "stripe": "^18.4.0",
     "swagger-ui-express": "^5.0.1",
     "ts-node": "^10.9.2",
     "uuid": "^11.1.0",
