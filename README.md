@@ -71,6 +71,25 @@ Todos os eventos são logados e podem ser consultados em `/logs`.
 - `ui/` — Interface React/Vite, autenticação, dashboard, gráficos
 - `infra/` — Docker, CI/CD
 - `docs/` — Documentação e políticas
+- `.github/` — Templates para Issues e Pull Requests
+
+### 7. Documentação
+- [Código de Conduta](CODE_OF_CONDUCT.md) — Diretrizes de comportamento para contribuidores
+- [Guia de Contribuição](CONTRIBUTING.md) — Como contribuir com o projeto
+- [Política de Segurança](SECURITY.md) — Diretrizes de segurança e reporte de vulnerabilidades
+- [Documentação Técnica](docs/DOCUMENTATION.md) — Documentação detalhada do framework
+
+## Contribuindo
+
+Adoraríamos receber suas contribuições! Por favor, leia nosso [Guia de Contribuição](CONTRIBUTING.md) para detalhes sobre nosso processo de submissão de Pull Requests.
+
+## Segurança
+
+Se você descobrir uma vulnerabilidade de segurança, por favor, siga nossa [Política de Segurança](SECURITY.md).
+
+## Código de Conduta
+
+Este projeto segue um [Código de Conduta](CODE_OF_CONDUCT.md). Ao participar, você concorda em seguir suas diretrizes.
 
 ---
 
