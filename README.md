@@ -76,6 +76,32 @@ Sistema empresarial avançado de governança adaptativa que utiliza **Inteligên
 - 💎 **Pro** ($29/month): 50K decisions/month, XAI, plugins, analytics
 - 🏢 **Enterprise** ($199/month): Unlimited + priority support + SSO
 
+### 🎛️ **Painéis Web Completos (Centro de Controle)**
+
+#### 👨‍💼 **Dashboard Administrativo (Super-Admin)**
+- 📊 **Controle Centralizado**: Gestão completa de todos os tenants
+- 💰 **Gestão Financeira**: Faturamento, planos, transações, inadimplência
+- 📈 **Métricas do Sistema**: Revenue, tenants ativos, conversões, churn
+- 👥 **Tenant Management**: CRUD completo (criar, editar, suspender, remover)
+- 🔍 **Monitoramento**: Logs de atividade, auditoria, alertas
+- 📋 **Relatórios**: Export de dados, dashboards customizáveis
+
+#### 🏢 **Dashboard Tenant (Cliente)**
+- 🎨 **Visão Personalizada**: Dashboard exclusivo por tenant
+- 💳 **Status Financeiro**: Plano atual, próxima cobrança, histórico de faturas
+- 📊 **Métricas de Uso**: API calls, usuários ativos, dados processados
+- ⚙️ **Configurações**: Personalização (logo, cores), gestão de usuários
+- 💰 **Autogestão Financeira**: Upgrade/downgrade, métodos de pagamento
+- 🔗 **Integrações**: Slack, Teams, webhooks, API keys
+
+#### 🎨 **Características dos Painéis**
+- **Material-UI Responsivo**: Interface moderna e intuitiva
+- **Gráficos Interativos**: Chart.js para visualizações avançadas
+- **Autenticação com Roles**: RBAC com proteção de rotas
+- **Navegação Dinâmica**: Alternância automática admin/tenant
+- **Real-time Updates**: WebSocket para dados em tempo real
+- **Multi-idioma**: Suporte para internacionalização
+
 ---
 
 ## 🎯 **Arquitetura Enterprise**
@@ -164,6 +190,43 @@ cd ../ui && npm ci && npm run dev
 - 💾 **Database**: localhost:5432
 - 🔴 **Redis**: localhost:6379
 
+### **🎛️ Demo dos Painéis Web**
+
+#### **👨‍💼 Login Administrativo**
+```bash
+# Acesse: http://localhost:8080
+# Email: admin@sistema.com
+# Senha: admin123
+# Role: ADMIN (Super-Admin)
+```
+**Funcionalidades disponíveis:**
+- Dashboard com métricas de todos os tenants
+- Gestão completa de tenants (CRUD)
+- Controle financeiro e billing
+- Logs e auditoria do sistema
+- Relatórios e análises
+
+#### **🏢 Login Tenant**
+```bash
+# Acesse: http://localhost:8080
+# Email: tenant@demo.com
+# Senha: tenant123
+# Role: TENANT (Cliente)
+```
+**Funcionalidades disponíveis:**
+- Dashboard personalizado do tenant
+- Status do plano e faturas
+- Métricas de uso individual
+- Configurações da conta
+- Gestão de usuários internos
+- Upgrade/downgrade de plano
+
+#### **🔄 Alternância de Painéis**
+- **Navegação Automática**: Sistema detecta o role e redireciona
+- **Menu de Alternância**: Botão para trocar entre Admin/Tenant
+- **Rotas Protegidas**: Acesso baseado em permissões
+- **Estado Persistente**: Mantém preferências do usuário
+
 ---
 
 ## 🔥 **Funcionalidades Enterprise**
@@ -214,14 +277,38 @@ npm run build        # Build de produção
 npm run test         # Testes com coverage
 npm run test:watch   # Testes em modo watch
 
-# UI (Frontend)
+# UI (Frontend) - Painéis Web Completos
 cd ui
 npm install
-npm run dev          # Servidor React
-npm run build        # Build otimizado
+npm run dev          # Servidor React com painéis Admin/Tenant
+npm run build        # Build otimizado dos painéis
 npm run preview      # Preview do build
 npm run test         # Testes unitários
 ```
+
+### **🎨 Stack Tecnológico dos Painéis**
+
+#### **Frontend (React + TypeScript)**
+- **React 18+**: Hooks, Suspense, Concurrent Features
+- **Material-UI (MUI)**: Componentes modernos e responsivos
+- **Chart.js**: Gráficos interativos e dashboards
+- **React Router**: Roteamento com proteção baseada em roles
+- **Axios**: Cliente HTTP com interceptors
+- **TypeScript**: Tipagem estática para maior robustez
+
+#### **Autenticação & Autorização**
+- **JWT Tokens**: Autenticação stateless
+- **RBAC (Role-Based Access Control)**: Admin vs Tenant
+- **Protected Routes**: Proteção automática de rotas
+- **Context API**: Estado global de autenticação
+- **Refresh Tokens**: Renovação automática de sessões
+
+#### **UX/UI Avançada**
+- **Responsive Design**: Mobile-first approach
+- **Dark/Light Mode**: Tema adaptável
+- **Loading States**: Feedback visual durante operações
+- **Error Boundaries**: Tratamento robusto de erros
+- **Internationalização**: Suporte multi-idioma (i18n)
 
 ### **🐳 Docker (Produção)**
 
