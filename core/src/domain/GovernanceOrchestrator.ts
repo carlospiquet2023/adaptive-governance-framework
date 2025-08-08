@@ -14,6 +14,14 @@ import { RedisService } from '../infrastructure/RedisService';
 import { PolicyEngine } from '../engines/PolicyEngine';
 import { ContextEngine } from '../engines/ContextEngine';
 import { LearningEngine } from '../engines/LearningEngine';
+import { XAIEngine } from '../xai/XAIEngine';
+import { PrivacyService } from '../privacy/PrivacyService';
+import { DecisionPipelineEngine, DecisionPipelineDef } from '../pipelines/DecisionPipeline';
+import { decisionsTotal, decisionLatency } from '../metrics/metrics';
+import { PluginLoader } from '../plugins';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import YAML from 'yaml';
 
 export interface GovernanceEvent {
     id: string;
@@ -43,6 +51,10 @@ export class GovernanceOrchestrator {
     private policyEngine!: PolicyEngine;
     private contextEngine!: ContextEngine;
     private learningEngine!: LearningEngine;
+    private xaiEngine!: XAIEngine;
+    private privacy!: PrivacyService;
+    private pipeline!: DecisionPipelineEngine;
+    private pipelineDef?: DecisionPipelineDef;
     
     // State
     private initialized = false;
@@ -72,6 +84,39 @@ export class GovernanceOrchestrator {
             this.policyEngine = new PolicyEngine();
             this.contextEngine = new ContextEngine();
             this.learningEngine = new LearningEngine();
+            this.xaiEngine = new XAIEngine();
+            this.privacy = new PrivacyService();
+            this.pipeline = new DecisionPipelineEngine();
+
+            // Handlers básicos do pipeline
+            this.pipeline.registerHandler('context', async ({ input }) => {
+                return { enriched: { ...input.context } };
+            });
+            this.pipeline.registerHandler('policy', async ({ input }) => {
+                return await this.policyEngine.evaluate({ ...input.context, timestamp: new Date(), correlationId: input.correlationId } as any);
+            });
+            this.pipeline.registerHandler('xai', async ({ results }) => {
+                const pol = results['policy'];
+                return await this.xaiEngine.explainDecision(pol);
+            });
+            this.pipeline.registerHandler('privacy', async ({ input, results }) => {
+                const roles = input.context?.roles || [];
+                return this.privacy.maskObject(results, roles);
+            });
+
+            // Carregar plugins opcionais
+            const pluginsDir = path.resolve(process.cwd(), 'plugins');
+            if (fs.existsSync(pluginsDir)) {
+                await new PluginLoader(pluginsDir).loadAll().catch(() => undefined);
+            }
+
+            // Carregar pipeline YAML se existir
+            const pipelineFile = process.env.AGF_PIPELINE_FILE || path.resolve(process.cwd(), 'pipelines', 'decision-flow.yaml');
+            if (fs.existsSync(pipelineFile)) {
+                const yamlText = fs.readFileSync(pipelineFile, 'utf-8');
+                this.pipelineDef = this.pipeline.loadFromYAML(yamlText);
+                this.logger.info('Pipeline de decisão carregado', { name: this.pipelineDef.name });
+            }
             
             this.initialized = true;
             this.logger.info('✅ Governance Orchestrator inicializado com sucesso');
@@ -98,9 +143,15 @@ export class GovernanceOrchestrator {
         
         try {
             this.metrics.totalRequests++;
+            const timer = decisionLatency.startTimer();
             
-            // Evaluate with policy engine
-            const policyResult = await this.policyEngine.evaluate({
+            // Evaluate with pipeline se definido, senão fallback ao PolicyEngine
+            let policyResult: any;
+            if (this.pipelineDef) {
+                const results = await this.pipeline.run(this.pipelineDef, { context: request, correlationId: requestId });
+                policyResult = results['policy'];
+            } else {
+                policyResult = await this.policyEngine.evaluate({
                 userId: request.userId,
                 resource: request.resource,
                 action: request.action,
@@ -108,6 +159,7 @@ export class GovernanceOrchestrator {
                 correlationId: requestId,
                 ...request.context
             });
+            }
             
             // Create decision
             const decision: GovernanceDecision = {
@@ -119,6 +171,8 @@ export class GovernanceOrchestrator {
             };
             
             this.metrics.totalDecisions++;
+            decisionsTotal.inc();
+            timer();
             
             this.logger.info('✅ Decisão tomada', {
                 requestId,

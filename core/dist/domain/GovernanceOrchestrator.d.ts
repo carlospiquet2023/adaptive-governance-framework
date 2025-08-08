@@ -28,6 +28,10 @@ export declare class GovernanceOrchestrator {
     private policyEngine;
     private contextEngine;
     private learningEngine;
+    private xaiEngine;
+    private privacy;
+    private pipeline;
+    private pipelineDef?;
     private initialized;
     private eventQueue;
     private metrics;

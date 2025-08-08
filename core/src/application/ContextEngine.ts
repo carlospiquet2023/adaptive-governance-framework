@@ -1,8 +1,9 @@
-import { MetricData, PolicyContext, Agent, AdaptiveAction } from '../domain/types';
+import { MetricData, AdaptiveAction } from '../domain/types';
 import { Logger } from '../utils/Logger';
 import { MetricService } from '../infrastructure/services/MetricService';
 import { DatabaseService } from '../infrastructure/DatabaseService';
 import { EventEmitter } from 'events';
+import { PolicyService } from '../app/policyService';
 
 export class ContextEngine extends EventEmitter {
     private static instance: ContextEngine;
@@ -57,7 +58,7 @@ export class ContextEngine extends EventEmitter {
             this.updateContext(metrics);
 
             // Analisa políticas aplicáveis
-            const policies = await this.policyService.getActivePolicies();
+            const policies = this.policyService.list();
             
             // Avalia cada política no contexto atual
             for (const policy of policies) {
@@ -78,7 +79,7 @@ export class ContextEngine extends EventEmitter {
         }
     }
 
-    private updateContext(metrics: MetricData[]): void {
+    private updateContext(metrics: any[]): void {
         for (const metric of metrics) {
             this.context.set(`metric.${metric.name}`, metric);
         }

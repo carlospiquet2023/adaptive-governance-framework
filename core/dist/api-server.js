@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const public_1 = __importDefault(require("./api/public"));
+const metrics_1 = require("./metrics/metrics");
+const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
@@ -99,6 +101,14 @@ app.post('/integrations/jira', (req, res) => {
         .json({ status: 'ok', received: true, provider: 'jira', event: payload });
 });
 app.use('/api/public', public_1.default);
+// Métricas Prometheus
+app.get('/metrics', async (_req, res) => {
+    res.set('Content-Type', metrics_1.register.contentType);
+    res.send(await metrics_1.register.metrics());
+});
+// Swagger (placeholder) - para plugar OpenAPI gerado
+const swaggerDoc = { openapi: '3.0.0', info: { title: 'AGF Core API', version: '0.1.0' } };
+app.use('/docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerDoc));
 app.get('/', (req, res) => {
     res.status(200).json({ status: 'ok', message: 'Core online' });
 });

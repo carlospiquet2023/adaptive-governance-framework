@@ -2,6 +2,8 @@
 
 # 🚀 Adaptive Governance Framework - Enterprise Edition
 
+[![CI](https://github.com/carlospiquet2023/adaptive-governance-framework/actions/workflows/ci.yml/badge.svg)](./infra/github-actions/ci.yml)
+
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green?style=for-the-badge&logo=node.js)](https://nodejs.org/)
 [![React](https://img.shields.io/badge/React-18+-blue?style=for-the-badge&logo=react)](https://reactjs.org/)
@@ -74,7 +76,7 @@ graph TB
 - **PostgreSQL** 14+
 - **Redis** 6+
 
-### **⚡ Instalação Rápida**
+### **⚡ Instalação Rápida (POC pronta)**
 
 ```bash
 # Clone o repositório
@@ -87,17 +89,17 @@ npm install
 # Configure ambiente
 cp .env.example .env
 
-# Suba com Docker (RECOMENDADO)
-docker-compose up --build
+# API (Core)
+cd core && npm ci --legacy-peer-deps && npm run api
 
-# OU desenvolvimento local
-cd core && npm install && npm run dev
-cd ui && npm install && npm run dev
+# UI (Painel)
+cd ../ui && npm ci && npm run dev
 ```
 
 ### **🎯 Acesso aos Serviços**
 - 🖥️ **Dashboard**: http://localhost:8080
 - 🔌 **API Core**: http://localhost:3000
+- 📚 **Swagger UI**: http://localhost:3000/docs
 - 📊 **Metrics**: http://localhost:3000/metrics
 - 💾 **Database**: localhost:5432
 - 🔴 **Redis**: localhost:6379
@@ -110,7 +112,7 @@ cd ui && npm install && npm run dev
 - **Policy Engine**: Avaliação inteligente de políticas com cache e context awareness
 - **Context Engine**: Análise de padrões comportamentais e detecção de anomalias
 - **Learning Engine**: ML models com treinamento automático e feedback loops
-- **Predictive Analytics**: Predição de riscos e comportamentos em tempo real
+- **Explainability (XAI)**: Explicabilidade de decisões (features influentes) via XAIEngine
 
 ### **🏗️ Arquitetura de Classe Mundial**
 - **Clean Architecture**: Separação clara de responsabilidades
@@ -127,7 +129,7 @@ cd ui && npm install && npm run dev
 
 ### **📊 Observabilidade Completa**
 - **Structured Logging**: Winston com correlation IDs e rotação
-- **Metrics & Telemetry**: Prometheus-compatible metrics
+- **Metrics & Telemetry**: Prometheus-ready (/metrics) com prom-client
 - **Health Monitoring**: Monitoramento de saúde em tempo real
 - **Distributed Tracing**: Rastreamento de requests distribuídos
 
@@ -139,7 +141,7 @@ cd ui && npm install && npm run dev
 
 ---
 
-## 💻 **Desenvolvimento**
+## 💻 **Desenvolvimento e POC**
 
 ### **🏃‍♂️ Desenvolvimento Local**
 
@@ -147,7 +149,7 @@ cd ui && npm install && npm run dev
 # Core (Backend)
 cd core
 npm install
-npm run dev          # Servidor de desenvolvimento
+npm run api          # API mock com /docs e /metrics
 npm run build        # Build de produção  
 npm run test         # Testes com coverage
 npm run test:watch   # Testes em modo watch
@@ -195,7 +197,35 @@ npm run type-check
 
 ## 🎯 **Como Usar**
 
-### **1️⃣ Autenticação**
+### **1️⃣ CLI Oficial (gov-cli)**
+Comandos úteis:
+
+```bash
+# Compilar DSL para JSON interno do PolicyEngine
+cd core
+npm run cli -- dsl-compile ./pipelines/sample.rule
+
+# Avaliar uma política (contexto inline)
+npm run cli -- policy-eval -c '{"resource":"res","action":"read"}'
+
+# Gerenciar modelos (Model Registry)
+npm run cli -- model --add '{"name":"fraud","type":"classification","version":"1.0.0"}'
+npm run cli -- model --list
+```
+
+### **2️⃣ API Pública (exemplos)**
+
+```bash
+# Models
+GET  http://localhost:3000/api/public/models
+POST http://localhost:3000/api/public/models             # body: { name, type, version }
+POST http://localhost:3000/api/public/models/:id/activate
+
+# XAI
+POST http://localhost:3000/api/public/xai/explain        # body: { context: { resource, action, ... } }
+```
+
+### **3️⃣ SDK/Framework**
 ```typescript
 import { AdaptiveGovernanceFramework } from '@adaptive-governance/core';
 
@@ -213,7 +243,7 @@ const decision = await framework.makeGovernanceDecision({
 console.log(decision); // { decision: 'allow', confidence: 0.95, reasoning: [...] }
 ```
 
-### **2️⃣ Políticas Dinâmicas**
+### **4️⃣ Políticas Dinâmicas**
 ```typescript
 // Criar política adaptativa
 await framework.createPolicy({
@@ -237,7 +267,7 @@ await framework.createPolicy({
 });
 ```
 
-### **3️⃣ Machine Learning**
+### **5️⃣ Machine Learning**
 ```typescript
 // Treinar modelo comportamental
 const model = await framework.trainBehaviorModel({

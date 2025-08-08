@@ -1,76 +1,32 @@
-import { MetricRegistry, Timer, Counter, Histogram } from 'metrics-js';
 import { Logger } from '../infrastructure/Logger';
+import { Counter, Histogram, Registry } from 'prom-client';
 
 export class TelemetryService {
     private static instance: TelemetryService;
-    private metrics: MetricRegistry;
-    private logger: Logger;
-    
-    private constructor() {
-        this.metrics = new MetricRegistry();
-        this.logger = Logger.getInstance();
-    }
-    
+    private readonly registry = new Registry();
+    private readonly logger = Logger.getInstance();
+    private readonly latency = new Histogram({ name: 'agf_latency_ms', help: 'Latência por operação', buckets: [5,10,20,50,100,200,500,1000], registers: [this.registry] });
+    private readonly policyExec = new Counter({ name: 'agf_policy_execution_total', help: 'Execuções de políticas', labelNames: ['result'], registers: [this.registry] });
+    private readonly memory = new Histogram({ name: 'agf_system_memory_heap_bytes', help: 'Uso de heap', buckets: [1e6,2e6,5e6,1e7,2e7,5e7,1e8], registers: [this.registry] });
+
     static getInstance(): TelemetryService {
-        if (!TelemetryService.instance) {
-            TelemetryService.instance = new TelemetryService();
-        }
-        return TelemetryService.instance;
+        if (!this.instance) this.instance = new TelemetryService();
+        return this.instance;
     }
-    
-    // Métricas de Performance
-    recordLatency(operation: string, timeMs: number): void {
-        const timer = this.metrics.timer(`latency.${operation}`);
-        timer.update(timeMs);
+
+    recordLatency(operation: string, timeMs: number) {
+        this.latency.observe(timeMs);
     }
-    
-    // Métricas de Negócio
-    incrementPolicyExecution(policyId: string, success: boolean): void {
-        const counter = this.metrics.counter(`policy.execution.${success ? 'success' : 'failure'}`);
-        counter.inc();
-        
-        // Registrar detalhes para analytics
-        this.logger.info('policy_execution', {
-            policyId,
-            success,
-            timestamp: new Date().toISOString()
-        });
+
+    incrementPolicyExecution(policyId: string, success: boolean) {
+        this.policyExec.inc({ result: success ? 'success' : 'failure' });
+        this.logger.info('policy_execution', { policyId, success, timestamp: new Date().toISOString() });
     }
-    
-    // Métricas de Sistema
-    recordMemoryUsage(): void {
-        const histogram = this.metrics.histogram('system.memory');
+
+    recordMemoryUsage() {
         const usage = process.memoryUsage();
-        histogram.update(usage.heapUsed);
+        this.memory.observe(usage.heapUsed);
     }
-    
-    // Analytics e Insights
-    async generateInsights(): Promise<any> {
-        // Análise de tendências
-        const trends = await this.analyzeTrends();
-        
-        // Previsões
-        const predictions = await this.generatePredictions();
-        
-        return {
-            trends,
-            predictions,
-            recommendations: this.generateRecommendations(trends, predictions)
-        };
-    }
-    
-    private async analyzeTrends(): Promise<any> {
-        // Implementar análise de tendências usando ML
-        return {};
-    }
-    
-    private async generatePredictions(): Promise<any> {
-        // Implementar previsões usando modelos de ML
-        return {};
-    }
-    
-    private generateRecommendations(trends: any, predictions: any): any[] {
-        // Gerar recomendações baseadas em dados
-        return [];
-    }
+
+    getRegistry() { return this.registry; }
 }

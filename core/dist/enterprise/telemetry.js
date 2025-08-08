@@ -1,68 +1,32 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TelemetryService = void 0;
-const metrics_js_1 = require("metrics-js");
-const logger_1 = require("../utils/logger");
+const Logger_1 = require("../infrastructure/Logger");
+const prom_client_1 = require("prom-client");
 class TelemetryService {
     static instance;
-    metrics;
-    logger;
-    constructor() {
-        this.metrics = new metrics_js_1.MetricRegistry();
-        this.logger = logger_1.Logger.getInstance();
-    }
+    registry = new prom_client_1.Registry();
+    logger = Logger_1.Logger.getInstance();
+    latency = new prom_client_1.Histogram({ name: 'agf_latency_ms', help: 'Latência por operação', buckets: [5, 10, 20, 50, 100, 200, 500, 1000], registers: [this.registry] });
+    policyExec = new prom_client_1.Counter({ name: 'agf_policy_execution_total', help: 'Execuções de políticas', labelNames: ['result'], registers: [this.registry] });
+    memory = new prom_client_1.Histogram({ name: 'agf_system_memory_heap_bytes', help: 'Uso de heap', buckets: [1e6, 2e6, 5e6, 1e7, 2e7, 5e7, 1e8], registers: [this.registry] });
     static getInstance() {
-        if (!TelemetryService.instance) {
-            TelemetryService.instance = new TelemetryService();
-        }
-        return TelemetryService.instance;
+        if (!this.instance)
+            this.instance = new TelemetryService();
+        return this.instance;
     }
-    // Métricas de Performance
     recordLatency(operation, timeMs) {
-        const timer = this.metrics.timer(`latency.${operation}`);
-        timer.update(timeMs);
+        this.latency.observe(timeMs);
     }
-    // Métricas de Negócio
     incrementPolicyExecution(policyId, success) {
-        const counter = this.metrics.counter(`policy.execution.${success ? 'success' : 'failure'}`);
-        counter.inc();
-        // Registrar detalhes para analytics
-        this.logger.info('policy_execution', {
-            policyId,
-            success,
-            timestamp: new Date().toISOString()
-        });
+        this.policyExec.inc({ result: success ? 'success' : 'failure' });
+        this.logger.info('policy_execution', { policyId, success, timestamp: new Date().toISOString() });
     }
-    // Métricas de Sistema
     recordMemoryUsage() {
-        const histogram = this.metrics.histogram('system.memory');
         const usage = process.memoryUsage();
-        histogram.update(usage.heapUsed);
+        this.memory.observe(usage.heapUsed);
     }
-    // Analytics e Insights
-    async generateInsights() {
-        // Análise de tendências
-        const trends = await this.analyzeTrends();
-        // Previsões
-        const predictions = await this.generatePredictions();
-        return {
-            trends,
-            predictions,
-            recommendations: this.generateRecommendations(trends, predictions)
-        };
-    }
-    async analyzeTrends() {
-        // Implementar análise de tendências usando ML
-        return {};
-    }
-    async generatePredictions() {
-        // Implementar previsões usando modelos de ML
-        return {};
-    }
-    generateRecommendations(trends, predictions) {
-        // Gerar recomendações baseadas em dados
-        return [];
-    }
+    getRegistry() { return this.registry; }
 }
 exports.TelemetryService = TelemetryService;
 //# sourceMappingURL=telemetry.js.map

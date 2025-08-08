@@ -9,6 +9,7 @@
     "start": "node dist/index.js",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "api": "ts-node src/api-server.ts",
+    "cli": "ts-node src/bin/gov-cli.ts",
     "lint": "eslint ./src --ext .ts",
     "format": "prettier --write \"src/**/*.ts\"",
     "test": "jest --coverage"
@@ -27,18 +28,22 @@
     "@types/winston": "^2.4.4",
     "axios": "^1.6.2",
     "bcrypt": "^6.0.0",
+    "commander": "^12.1.0",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "express-graphql": "^0.12.0",
-    "graphql": "^16.11.0",
+    "graphql": "^15.10.1",
     "helmet": "^8.1.0",
     "ioredis": "^5.7.0",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.16.3",
+    "prom-client": "^15.1.3",
+    "swagger-ui-express": "^5.0.1",
     "ts-node": "^10.9.2",
     "uuid": "^11.1.0",
     "winston": "^3.17.0",
-    "winston-daily-rotate-file": "^5.0.0"
+    "winston-daily-rotate-file": "^5.0.0",
+    "yaml": "^2.4.5"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
@@ -46,6 +51,7 @@
     "@types/express": "^4.17.23",
     "@types/jest": "^29.5.11",
     "@types/node": "^20.11.30",
+    "@types/swagger-ui-express": "^4.1.8",
     "@typescript-eslint/eslint-plugin": "^7.1.0",
     "@typescript-eslint/parser": "^7.1.0",
     "eslint": "^8.57.0",
@@ -57,5 +63,8 @@
   },
   "engines": {
     "node": ">=18.0.0"
+  },
+  "bin": {
+    "gov-cli": "dist/bin/gov-cli.js"
   }
 }

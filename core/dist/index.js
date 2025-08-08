@@ -8,7 +8,7 @@
  * Arquitetura: Clean Architecture + DDD + CQRS + Event Sourcing
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LearningEngine = exports.ContextEngine = exports.PolicyEngine = exports.RedisService = exports.DatabaseService = exports.ConfigManager = exports.Logger = exports.GovernanceOrchestrator = exports.AdaptiveGovernanceFramework = void 0;
+exports.PrivacyService = exports.DecisionPipelineEngine = exports.ModelRegistry = exports.XAIEngine = exports.RuleDSLParser = exports.PluginLoader = exports.PluginRegistry = exports.LearningEngine = exports.ContextEngine = exports.PolicyEngine = exports.RedisService = exports.DatabaseService = exports.ConfigManager = exports.Logger = exports.GovernanceOrchestrator = exports.AdaptiveGovernanceFramework = void 0;
 const GovernanceOrchestrator_1 = require("./domain/GovernanceOrchestrator");
 const Logger_1 = require("./infrastructure/Logger");
 class AdaptiveGovernanceFramework {
@@ -65,4 +65,18 @@ var ContextEngine_1 = require("./engines/ContextEngine");
 Object.defineProperty(exports, "ContextEngine", { enumerable: true, get: function () { return ContextEngine_1.ContextEngine; } });
 var LearningEngine_1 = require("./engines/LearningEngine");
 Object.defineProperty(exports, "LearningEngine", { enumerable: true, get: function () { return LearningEngine_1.LearningEngine; } });
+// New modules
+var plugins_1 = require("./plugins");
+Object.defineProperty(exports, "PluginRegistry", { enumerable: true, get: function () { return plugins_1.PluginRegistry; } });
+Object.defineProperty(exports, "PluginLoader", { enumerable: true, get: function () { return plugins_1.PluginLoader; } });
+var rule_dsl_1 = require("./dsl/rule-dsl");
+Object.defineProperty(exports, "RuleDSLParser", { enumerable: true, get: function () { return rule_dsl_1.RuleDSLParser; } });
+var XAIEngine_1 = require("./xai/XAIEngine");
+Object.defineProperty(exports, "XAIEngine", { enumerable: true, get: function () { return XAIEngine_1.XAIEngine; } });
+var ModelRegistry_1 = require("./model_registry/ModelRegistry");
+Object.defineProperty(exports, "ModelRegistry", { enumerable: true, get: function () { return ModelRegistry_1.ModelRegistry; } });
+var DecisionPipeline_1 = require("./pipelines/DecisionPipeline");
+Object.defineProperty(exports, "DecisionPipelineEngine", { enumerable: true, get: function () { return DecisionPipeline_1.DecisionPipelineEngine; } });
+var PrivacyService_1 = require("./privacy/PrivacyService");
+Object.defineProperty(exports, "PrivacyService", { enumerable: true, get: function () { return PrivacyService_1.PrivacyService; } });
 //# sourceMappingURL=index.js.map

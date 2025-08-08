@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ContextEngine = void 0;
 const Logger_1 = require("../utils/Logger");
 const MetricService_1 = require("../infrastructure/services/MetricService");
-const PolicyService_1 = require("../infrastructure/services/PolicyService");
 const events_1 = require("events");
+const policyService_1 = require("../app/policyService");
 class ContextEngine extends events_1.EventEmitter {
     static instance;
     logger;
@@ -16,7 +16,7 @@ class ContextEngine extends events_1.EventEmitter {
         super();
         this.logger = Logger_1.Logger.getInstance();
         this.metricService = new MetricService_1.MetricService();
-        this.policyService = new PolicyService_1.PolicyService();
+        this.policyService = new policyService_1.PolicyService();
         this.context = new Map();
         this.analysisInterval = null;
     }
@@ -49,7 +49,7 @@ class ContextEngine extends events_1.EventEmitter {
             // Atualiza contexto com novas métricas
             this.updateContext(metrics);
             // Analisa políticas aplicáveis
-            const policies = await this.policyService.getActivePolicies();
+            const policies = this.policyService.list();
             // Avalia cada política no contexto atual
             for (const policy of policies) {
                 const evaluation = this.evaluatePolicy(policy, this.context);

@@ -1,0 +1,14 @@
+name: default-decision-flow
+entry: context
+nodes:
+  - id: context
+    type: context
+    next: [policy]
+  - id: policy
+    type: policy
+    next: [xai]
+  - id: xai
+    type: xai
+    next: [privacy]
+  - id: privacy
+    type: privacy
