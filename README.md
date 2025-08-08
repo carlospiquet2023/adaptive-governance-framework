@@ -619,13 +619,13 @@ Este projeto está licenciado sob a **MIT License** - veja o arquivo [LICENSE](L
 
 **Desenvolvido por:**
 - 🚀 **Carlos Piquet** - Arquiteto Principal & Lead Developer
-- 🌟 **Powered by AI** - GitHub Copilot Integration
+- 🌟 **Douglas de Pinho Reck dos Santos** -  Arquiteto Principal & Lead Developer
 
 ---
 
 ## 📞 **Suporte**
 
-- 📧 **Email**: support@adaptive-governance.dev
+- 📧 **Email**: carlospiquet.projetos@gmail.com
 - 💬 **Discord**: [Join our community](https://discord.gg/adaptive-governance)
 - 📖 **Documentation**: [Full docs](https://docs.adaptive-governance.dev)
 - 🐛 **Issues**: [GitHub Issues](https://github.com/carlospiquet2023/adaptive-governance-framework/issues)
