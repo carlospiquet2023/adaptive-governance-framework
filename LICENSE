@@ -1,21 +1,64 @@
-MIT License
+Copyright (c) 2025 Carlos Antonio de Oliveira Piquet
 
-Copyright (c) 2025 Carlos Piquet - Adaptive Governance Framework
+LICENÇA PROPRIETÁRIA E RESTRITIVA
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Este projeto é propriedade intelectual exclusiva de Carlos Antonio de Oliveira Piquet. Todos os direitos reservados.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+TERMOS E CONDIÇÕES:
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+1. PROPRIEDADE INTELECTUAL
+   Este software, incluindo mas não limitado ao código-fonte, documentação, algoritmos, 
+   arquitetura, design patterns, estruturas de dados, e qualquer material relacionado, 
+   é propriedade intelectual exclusiva do autor.
+
+2. PROIBIÇÕES EXPRESSAS
+   É ESTRITAMENTE PROIBIDO, sem autorização expressa e por escrito do autor:
+   - Copiar, reproduzir ou duplicar qualquer parte deste código
+   - Modificar, adaptar ou criar obras derivadas
+   - Distribuir, sublicenciar ou comercializar este software
+   - Usar este código em projetos pessoais ou comerciais
+   - Incorporar trechos deste código em outros sistemas
+   - Fazer engenharia reversa ou descompilar
+   - Usar conceitos, arquiteturas ou padrões únicos deste projeto
+
+3. VIOLAÇÃO DE DIREITOS AUTORAIS
+   A reprodução, redistribuição, reutilização ou uso não autorizado do conteúdo 
+   deste repositório constitui violação grave de direitos autorais e está sujeita:
+   - Às sanções civis e criminais previstas na Lei 9.610/98 (Lei de Direitos Autorais)
+   - À Lei 12.853/13 (Marco Civil da Internet)
+   - Às penalidades do Código Penal Brasileiro (Art. 184)
+   - A indenizações por danos materiais e morais
+
+4. ESTE PROJETO NÃO É OPEN SOURCE
+   Este repositório é mantido público apenas para fins de portfólio e demonstração 
+   profissional. A visibilidade pública NÃO constitui autorização para uso.
+
+5. MONITORAMENTO E FISCALIZAÇÃO
+   Este repositório é monitorado para detectar uso indevido. Ferramentas automatizadas 
+   rastreiam cópias, forks não autorizados e violações de propriedade intelectual.
+
+6. PROCEDIMENTOS LEGAIS
+   Violações serão reportadas via:
+   - DMCA takedown requests ao GitHub
+   - Notificação extrajudicial
+   - Ação judicial para reparação de danos
+   - Comunicação aos órgãos competentes
+
+7. LICENCIAMENTO COMERCIAL
+   Para adquirir licença de uso, parcerias comerciais ou consultoria:
+   
+   📧 Email: carlospiquet.projetos@gmail.com
+   🌐 Portfólio: https://github.com/carlospiquet2023
+
+8. JURISDIÇÃO
+   Este contrato é regido pelas leis brasileiras, com foro na cidade de Rio de Janeiro, Brasil.
+
+AVISO IMPORTANTE:
+Se você está visualizando este repositório, você RECONHECE e ACEITA que:
+- Não tem permissão para usar este código
+- Está ciente das restrições legais
+- Concorda com os termos desta licença proprietária
+
+Data: 08 de Agosto de 2025
+Autor: Carlos Antonio de Oliveira Piquet
+Local: Brasil

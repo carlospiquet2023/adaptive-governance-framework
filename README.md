@@ -2,13 +2,50 @@
 
 # 🚀 Adaptive Governance Framework - Enterprise Edition
 
-[![CI](https://github.com/carlospiquet2023/adaptive-governance-framework/actions/workflows/ci.yml/badge.svg)](./infra/github-actions/ci.yml)
+⚠️ **PROPRIEDADE INTELECTUAL PROTEGIDA** ⚠️
 
+[![CI](https://github.com/carlospiquet2023/adaptive-governance-framework/actions/workflows/ci.yml/badge.svg)](./infra/github-actions/ci.yml)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green?style=for-the-badge&logo=node.js)](https://nodejs.org/)
 [![React](https://img.shields.io/badge/React-18+-blue?style=for-the-badge&logo=react)](https://reactjs.org/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue?style=for-the-badge&logo=docker)](https://www.docker.com/)
-[![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![License](https://img.shields.io/badge/License-PROPRIETÁRIA-red?style=for-the-badge)](./LICENSE)
+
+## 📌 **AUTORIA E DIREITOS AUTORAIS**
+
+### 🔒 **PROPRIEDADE INTELECTUAL EXCLUSIVA**
+
+Este projeto foi **idealizado, estruturado e desenvolvido por Carlos Antonio de Oliveira Piquet**.
+
+**TODOS OS DIREITOS RESERVADOS** - Este framework é propriedade intelectual exclusiva do autor. 
+
+### ⛔ **USO PROIBIDO SEM AUTORIZAÇÃO**
+
+**É EXPRESSAMENTE PROIBIDO:**
+- ❌ Copiar, clonar ou reproduzir qualquer parte deste código
+- ❌ Usar este código em projetos pessoais ou comerciais  
+- ❌ Modificar, adaptar ou criar obras derivadas
+- ❌ Distribuir, sublicenciar ou comercializar
+- ❌ Incorporar trechos em outros sistemas
+- ❌ Usar conceitos ou arquiteturas proprietárias
+
+### ⚖️ **PROTEÇÃO LEGAL**
+
+**Violações estão sujeitas às penalidades da Lei Brasileira:**
+- 📜 Lei 9.610/98 (Direitos Autorais)
+- 🖥️ Lei 12.853/13 (Marco Civil da Internet)  
+- ⚖️ Código Penal Brasileiro (Art. 184)
+- 💰 Indenizações por danos materiais e morais
+
+### 💼 **LICENCIAMENTO COMERCIAL**
+
+Para **licença de uso**, **parcerias comerciais** ou **consultoria especializada**:
+
+📧 **Email:** carlospiquet.projetos@gmail.com  
+📱 **LinkedIn:** https://linkedin.com/in/carlospiquet2023  
+🌐 **Portfólio:** https://github.com/carlospiquet2023  
+
+---
 
 ## 🌟 **Framework Único de Governança Adaptativa com AI/ML**
 
@@ -524,6 +561,45 @@ Este projeto está licenciado sob a **MIT License** - veja o arquivo [LICENSE](L
 - **POST /users** `{ username, password, role }` → `{ token, role }`
 - **GET /policies** → lista de políticas
 - **GET /logs** → logs de eventos e integrações
+
+---
+
+## 🚨 **AVISO LEGAL FINAL**
+
+### ⚖️ **ESTE PROJETO É PROPRIEDADE INTELECTUAL PROTEGIDA**
+
+**Ao visualizar este repositório, você reconhece e declara que:**
+
+✅ **Compreende** que este código é propriedade exclusiva de Carlos Antonio de Oliveira Piquet  
+✅ **Está ciente** das restrições legais de uso, cópia e distribuição  
+✅ **Concorda** em não utilizar qualquer parte deste código sem autorização  
+✅ **Aceita** as consequências legais em caso de violação  
+
+### 📞 **CONTATO PARA LICENCIAMENTO**
+
+**Para uso comercial, parcerias ou consultoria:**
+
+📧 **Email Direto:** carlospiquet.projetos@gmail.com  
+📱 **LinkedIn Profissional:** https://linkedin.com/in/carlospiquet2023  
+🌐 **Portfólio Completo:** https://github.com/carlospiquet2023  
+
+### 🔒 **PROTEÇÃO TECNOLÓGICA**
+
+- 🤖 **Monitoramento Automatizado** de cópias não autorizadas
+- 🕵️ **Rastreamento de Uso Indevido** em tempo real  
+- 📊 **Análise de Similaridade** com outros repositórios
+- ⚡ **Alerta Imediato** para violações detectadas
+
+### 📜 **DOCUMENTOS LEGAIS**
+
+📋 [**LICENÇA COMPLETA**](./LICENSE) - Termos e condições detalhados  
+📋 [**PROPRIEDADE INTELECTUAL**](./PROPRIEDADE_INTELECTUAL.md) - Aviso legal completo  
+
+---
+
+**© 2025 Carlos Antonio de Oliveira Piquet - Todos os direitos reservados**
+
+*Este projeto representa anos de desenvolvimento e inovação em arquiteturas empresariais avançadas.*
 
 ### 5. Integrações externas simuladas
 - **POST /integrations/slack** `{ message }` → envia mensagem para Slack
